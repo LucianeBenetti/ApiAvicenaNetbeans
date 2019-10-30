@@ -40,18 +40,6 @@ public class UsuarioServer {
         return usuarioVO;
     }
 
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//    public Integer cadastrar(@FormParam("dado") String dadosJSON) {
-//        Gson gson = new Gson();
-//        UsuarioVO usuarioVO = gson.fromJson(dadosJSON, UsuarioVO.class);
-//        UsuarioDAO usuarioDao = new UsuarioDAO();
-//        int lastId = usuarioDao.inserir(usuarioVO);
-//        Conexao.closeConnection();
-//        return lastId;
-//    }
-
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -61,12 +49,16 @@ public class UsuarioServer {
        UsuarioVO usuarioVO = gson.fromJson(dadosJSON, UsuarioVO.class);
        UsuarioDAO usuarioDao = new UsuarioDAO();
        UsuarioVO usuarioRetornado =  usuarioDao.pesquisarUsuarioVO(usuarioVO.getLogin(), usuarioVO.getSenha());
-       if (usuarioRetornado.getPerfil().equals("medico")) {
-           Conexao.closeConnection();
-            return usuarioRetornado;
-        } else {
-            Conexao.closeConnection();
-            return null;
+       if(usuarioRetornado==null){
+            return new UsuarioVO();
+       }else{
+            if (usuarioRetornado.getPerfil().equals("medico")) {
+                Conexao.closeConnection();
+                 return usuarioRetornado;
+             } else {
+                 Conexao.closeConnection();
+                 return new UsuarioVO();
+            }
        }
     }
 
