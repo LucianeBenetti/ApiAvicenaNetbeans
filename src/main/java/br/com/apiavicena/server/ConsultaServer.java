@@ -48,7 +48,7 @@ public class ConsultaServer {
     @Path("{emailMedico}")
     public List<ConsultaVO> getConvenioVO(@PathParam("emailMedico") String emailMedico) {
         ConsultaDAO consultaDAO = new ConsultaDAO();
-        List<ConsultaVO> consultasVO = consultaDAO.listarPorEmail(emailMedico);
+        List<ConsultaVO> consultasVO = consultaDAO.listar();
         List<ConsultaVO> listaConsultasVO = new ArrayList();
 
         for (int i = 0; i < consultasVO.size(); i++) {

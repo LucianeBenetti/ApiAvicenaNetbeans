@@ -74,57 +74,57 @@ public class MedicoServer {
         return lastId;
     }
 
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Path("{codigoMedico}")
-    public Boolean alterar(@PathParam("codigoMedico") Integer id, @FormParam("dado") String dadosJSON) {
-        Gson gson = new Gson();
-        MedicoVO medicoVO = gson.fromJson(dadosJSON, MedicoVO.class);
-
-        if (id == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
-            medicoVO.setCodigoMedico(id);
-        } else {
-            return false;
-        }
-
-        MedicoDAO medicoDao = new MedicoDAO();
-        Boolean res = medicoDao.alterar(medicoVO);
-        Conexao.closeConnection();
-        return res;
-    }
-
 //    @PUT
 //    @Produces(MediaType.APPLICATION_JSON)
 //    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//    @Path("{emailMedico}")
-//    public Boolean alterar(@PathParam("emailMedico") String emailMedico, @FormParam("dado") String dadosJSON) {
-////      Gson gson = new Gson();
+//    @Path("{codigoMedico}")
+//    public Boolean alterar(@PathParam("codigoMedico") Integer id, @FormParam("dado") String dadosJSON) {
+//        Gson gson = new Gson();
 //        MedicoVO medicoVO = gson.fromJson(dadosJSON, MedicoVO.class);
-//        ConsultaDAO consultaDAO = new ConsultaDAO();
-//        List<ConsultaVO> consultasVO = consultaDAO.listar();
-//        int codigoMedico = 0;
 //
-//        for (int i = 0; i < consultasVO.size(); i++) {
-//            if (emailMedico.equals(consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getEmailMedico())) {
-//                codigoMedico = consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getCodigoMedico();
-//                MedicoDAO medicoDao = new MedicoDAO();
-//                medicoVO = medicoDao.lerMedicoVOPorId(codigoMedico);
-//
-//            }
+//        if (id == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
+//            medicoVO.setCodigoMedico(id);
+//        } else {
+//            return false;
 //        }
 //
-//            if (codigoMedico == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
-//                medicoVO.setCodigoMedico(codigoMedico);
-//            } else {
-//                return false;
-//            }
-//
-//            MedicoDAO medicoDao = new MedicoDAO();
-//            Boolean res = medicoDao.alterar(medicoVO);
-//            Conexao.closeConnection();
-//            return res;
-//        }
+//        MedicoDAO medicoDao = new MedicoDAO();
+//        Boolean res = medicoDao.alterar(medicoVO);
+//        Conexao.closeConnection();
+//        return res;
+//    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Path("{emailMedico}")
+    public Boolean alterar(@PathParam("emailMedico") String emailMedico, @FormParam("dado") String dadosJSON) {
+        Gson gson = new Gson();
+        MedicoVO medicoVO = gson.fromJson(dadosJSON, MedicoVO.class);
+        ConsultaDAO consultaDAO = new ConsultaDAO();
+        List<ConsultaVO> consultasVO = consultaDAO.listar();
+        int codigoMedico = 0;
+
+        for (int i = 0; i < consultasVO.size(); i++) {
+            if (emailMedico.equals(consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getEmailMedico())) {
+                codigoMedico = consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getCodigoMedico();
+                MedicoDAO medicoDao = new MedicoDAO();
+                medicoVO = medicoDao.lerMedicoVOPorId(codigoMedico);
+
+            }
+        }
+
+            if (codigoMedico == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
+                medicoVO.setCodigoMedico(codigoMedico);
+            } else {
+                return false;
+            }
+
+            MedicoDAO medicoDao = new MedicoDAO();
+            Boolean res = medicoDao.alterar(medicoVO);
+            Conexao.closeConnection();
+            return res;
+        }
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{codigoMedico}")
