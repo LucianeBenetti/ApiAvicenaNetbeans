@@ -34,19 +34,10 @@ public class ConsultaServer {
         return consultaDAO.listar();
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("{codigoConsulta}")
-//    public ConsultaVO getConvenioVO(@PathParam("codigoConsulta") Integer id) {
-//        ConsultaDAO consultaDAO= new ConsultaDAO();
-//        ConsultaVO consultaVO = consultaDAO.lerPorId(id);
-//        Conexao.closeConnection();
-//        return consultaVO;
-//    }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{emailMedico}")
-    public List<ConsultaVO> getConvenioVO(@PathParam("emailMedico") String emailMedico) {
+    public List<ConsultaVO> getConsultaVO(@PathParam("emailMedico") String emailMedico) {
         ConsultaDAO consultaDAO = new ConsultaDAO();
         List<ConsultaVO> consultasVO = consultaDAO.listar();
         List<ConsultaVO> listaConsultasVO = new ArrayList();

@@ -60,8 +60,7 @@ public class MedicoDAO {
     public boolean alterar(MedicoVO medicoVO) {
         boolean sucessoAtualizar = false;
 
-        String query = "UPDATE medico SET celMensagemMedico=?, celularMedico=? "
-                + " where codigoMedico = ?";
+        String query = "UPDATE medico SET celMensagemMedico=?, celularMedico=? where codigoMedico = ?";
 
         Connection conn = Conexao.getConnection();
         PreparedStatement prepStmt = Conexao.getPreparedStatement(conn, query);
@@ -91,21 +90,7 @@ public class MedicoDAO {
     }
 
     public boolean excluir(Integer codigoMedico) {
-//
-//        try {
-//            PreparedStatement preparedStatement = conexao.prepareStatement("DELETE FROM medico WHERE codigoMedico = ?");
-//            preparedStatement.setInt(1, codigoMedico);
-//            if (preparedStatement.executeUpdate() > 0) {
-//                return true;
-//            } else {
-//                return false;
-//            }
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//            return false;
-//        }
-//    }
+
         boolean sucessoDelete = false;
 
         String query = "DELETE from medico where codigoMedico = ? ";
@@ -129,31 +114,6 @@ public class MedicoDAO {
     } 
 
     public List<MedicoVO> listarTodosOsMedicos() {
-
-//        String sql = "select * from medico";
-//        try {
-//            PreparedStatement stmt = conexao.prepareStatement(sql);
-//            ResultSet result = stmt.executeQuery();
-//            List<MedicoVO> listaMedicos = new ArrayList<>();
-//            while (result.next()) {
-//                MedicoVO medico = new MedicoVO();
-//
-//                medico.setCodigoMedico(result.getInt(1));
-//                medico.setNomeMedico(result.getString(2));
-//                medico.setCrm(result.getString(3));
-//                medico.setCelMensagemMedico(result.getString(4));
-//                medico.setCelularMedico(result.getString(5));
-//                medico.setEmailMedico(result.getString(6));
-//                medico.setCpfMedico(result.getString(7));
-//                medico.setCnpjMedico(result.getString(8));
-//                listaMedicos.add(medico);
-//            }
-//            return listaMedicos;
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//            return null;
-//        }
-//    }
 
         ArrayList<MedicoVO> listaMedicos = new ArrayList<MedicoVO>();
         String query = "select * from medico";
@@ -290,4 +250,37 @@ public class MedicoDAO {
         return medico;
     }
 
+    public MedicoVO pesquisarMedicoVOPorEmail(String emailMedico) {
+
+        String query = "SELECT *from medico " + " where emailMedico = ?";
+
+        Connection conn = Conexao.getConnection();
+        PreparedStatement prepStmt = Conexao.getPreparedStatement(conn, query);
+        MedicoVO medico = null;
+
+        try {
+            prepStmt.setString(1, emailMedico);
+            ResultSet result = prepStmt.executeQuery();
+
+            while (result.next()) {
+                medico = new MedicoVO();
+
+                medico.setCodigoMedico(result.getInt(1));
+                medico.setNomeMedico(result.getString(2));
+                medico.setCrm(result.getString(3));
+                medico.setCelMensagemMedico(result.getString(4));
+                medico.setCelularMedico(result.getString(5));
+                medico.setEmailMedico(result.getString(6));
+                medico.setCpfMedico(result.getString(7));
+                medico.setCnpjMedico(result.getString(8));
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao executar a Query de Consulta de Médicos !Causa: \n: " + e.getMessage());
+        } finally {
+            Conexao.closePreparedStatement(prepStmt);
+            Conexao.closeConnection();
+        }
+        return medico;
+    }
 }

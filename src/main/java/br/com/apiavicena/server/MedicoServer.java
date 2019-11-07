@@ -34,34 +34,14 @@ public class MedicoServer {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{codigoMedico}")
-    public MedicoVO getMedicoVO(@PathParam("codigoMedico") int id) {
+    @Path("{emailMedico}")
+    public MedicoVO getMedicoVO(@PathParam("emailMedico") String emailMedico) {
         MedicoDAO medicoDao = new MedicoDAO();
-        MedicoVO medicoVO = medicoDao.lerMedicoVOPorId(id);
+        MedicoVO medicoVO = medicoDao.pesquisarMedicoVOPorEmail(emailMedico);
         Conexao.closeConnection();
         return medicoVO;
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("{emailMedico}")
-//    public MedicoVO getMedicoVO(@PathParam("emailMedico") String emailMedico) {
-//
-//        ConsultaDAO consultaDAO = new ConsultaDAO();
-//        List<ConsultaVO> consultasVO = consultaDAO.listar();
-//        MedicoVO medicoVO = null;
-//
-//        for (int i = 0; i < consultasVO.size(); i++) {
-//            if (emailMedico.equals(consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getEmailMedico())) {
-//                int codigoMedico = consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getCodigoMedico();
-//                MedicoDAO medicoDao = new MedicoDAO();
-//                medicoVO = medicoDao.lerMedicoVOPorId(codigoMedico);
-//            }
-//        }
-//
-//        Conexao.closeConnection();
-//        return medicoVO;
-//    }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -74,65 +54,38 @@ public class MedicoServer {
         return lastId;
     }
 
-//    @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//    @Path("{codigoMedico}")
-//    public Boolean alterar(@PathParam("codigoMedico") Integer id, @FormParam("dado") String dadosJSON) {
-//        Gson gson = new Gson();
-//        MedicoVO medicoVO = gson.fromJson(dadosJSON, MedicoVO.class);
-//
-//        if (id == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
-//            medicoVO.setCodigoMedico(id);
-//        } else {
-//            return false;
-//        }
-//
-//        MedicoDAO medicoDao = new MedicoDAO();
-//        Boolean res = medicoDao.alterar(medicoVO);
-//        Conexao.closeConnection();
-//        return res;
-//    }
-
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Path("{emailMedico}")
-    public Boolean alterar(@PathParam("emailMedico") String emailMedico, @FormParam("dado") String dadosJSON) {
+    @Path("{codigoMedico}")
+    public Boolean alterar(@PathParam("codigoMedico") Integer id, @FormParam("dado") String dadosJSON) {
         Gson gson = new Gson();
         MedicoVO medicoVO = gson.fromJson(dadosJSON, MedicoVO.class);
-        ConsultaDAO consultaDAO = new ConsultaDAO();
-        List<ConsultaVO> consultasVO = consultaDAO.listar();
-        int codigoMedico = 0;
 
-        for (int i = 0; i < consultasVO.size(); i++) {
-            if (emailMedico.equals(consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getEmailMedico())) {
-                codigoMedico = consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getCodigoMedico();
-                MedicoDAO medicoDao = new MedicoDAO();
-                medicoVO = medicoDao.lerMedicoVOPorId(codigoMedico);
+      //  if (id == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
+            medicoVO.setCodigoMedico(id);
+//        } else {
+//            return false;
+//        }
 
-            }
-        }
-
-            if (codigoMedico == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
-                medicoVO.setCodigoMedico(codigoMedico);
-            } else {
-                return false;
-            }
-
-            MedicoDAO medicoDao = new MedicoDAO();
-            Boolean res = medicoDao.alterar(medicoVO);
-            Conexao.closeConnection();
-            return res;
-        }
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{codigoMedico}")
-    public Boolean deletar(@PathParam("codigoMedico") Integer id) {
         MedicoDAO medicoDao = new MedicoDAO();
-        Boolean res = medicoDao.excluir(id);
+        Boolean res = medicoDao.alterar(medicoVO);
         Conexao.closeConnection();
         return res;
     }
 
-}
+        @DELETE
+        @Produces(MediaType.APPLICATION_JSON)
+        @Path("{codigoMedico}")
+        public Boolean deletar
+        (@PathParam("codigoMedico")
+        Integer id
+        
+            ) {
+        MedicoDAO medicoDao = new MedicoDAO();
+            Boolean res = medicoDao.excluir(id);
+            Conexao.closeConnection();
+            return res;
+        }
+
+    }
