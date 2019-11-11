@@ -62,11 +62,11 @@ public class MedicoServer {
         Gson gson = new Gson();
         MedicoVO medicoVO = gson.fromJson(dadosJSON, MedicoVO.class);
 
-      //  if (id == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
+      if (id == medicoVO.getCodigoMedico() || medicoVO.getCodigoMedico() == null) {
             medicoVO.setCodigoMedico(id);
-//        } else {
-//            return false;
-//        }
+        } else {
+            return false;
+        }
 
         MedicoDAO medicoDao = new MedicoDAO();
         Boolean res = medicoDao.alterar(medicoVO);

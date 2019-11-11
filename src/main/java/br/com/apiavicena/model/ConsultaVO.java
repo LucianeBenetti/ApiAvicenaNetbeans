@@ -2,6 +2,7 @@
 package br.com.apiavicena.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -102,7 +103,10 @@ public class ConsultaVO implements Serializable{
 
     @Override
     public String toString() {
-        return "ConsultaVO{" + "codigoConsulta=" + codigoConsulta + ", especializacaoVO=" + especializacaoVO + ", pacienteVO=" + pacienteVO + ", convenioVO=" + convenioVO + ", dataConsulta=" + dataConsulta + ", horarioConsulta=" + horarioConsulta + ", atencaoEspecial=" + atencaoEspecial + '}';
+        
+             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                 
+            return "ConsultaVO{" + "codigoConsulta=" + codigoConsulta + ", especializacaoVO=" + especializacaoVO + ", pacienteVO=" + pacienteVO + ", convenioVO=" + convenioVO + ", dataConsulta=" +   sdf.format(dataConsulta) + ", horarioConsulta=" + horarioConsulta + ", atencaoEspecial=" + atencaoEspecial + '}';
     }
 
 }

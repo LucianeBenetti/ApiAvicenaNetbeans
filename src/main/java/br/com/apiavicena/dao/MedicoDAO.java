@@ -66,14 +66,14 @@ public class MedicoDAO {
         PreparedStatement prepStmt = Conexao.getPreparedStatement(conn, query);
 
         try {
-            prepStmt.setString(1, medicoVO.getNomeMedico());
-            prepStmt.setString(2, medicoVO.getCrm());
-            prepStmt.setString(3, medicoVO.getCelMensagemMedico());
-            prepStmt.setString(4, medicoVO.getCelularMedico());
-            prepStmt.setString(5, medicoVO.getEmailMedico());
-            prepStmt.setString(6, medicoVO.getCpfMedico());
-            prepStmt.setString(7, medicoVO.getCnpjMedico());
-            prepStmt.setInt(8, medicoVO.getCodigoMedico());
+          //  prepStmt.setString(1, medicoVO.getNomeMedico());
+            //prepStmt.setString(2, medicoVO.getCrm());
+            prepStmt.setString(1, medicoVO.getCelMensagemMedico());
+            prepStmt.setString(2, medicoVO.getCelularMedico());
+           // prepStmt.setString(5, medicoVO.getEmailMedico());
+           // prepStmt.setString(6, medicoVO.getCpfMedico());
+           // prepStmt.setString(7, medicoVO.getCnpjMedico());
+            prepStmt.setInt(3, medicoVO.getCodigoMedico());
 
             int codigoRetorno = prepStmt.executeUpdate();
 
