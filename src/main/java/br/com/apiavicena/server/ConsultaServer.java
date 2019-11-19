@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -45,16 +46,18 @@ public class ConsultaServer {
         for (int i = 0; i < consultasVO.size(); i++) {
             if (emailMedico.equals(consultasVO.get(i).getEspecializacaoVO().getMedicoVO().getEmailMedico())) {
                 ConsultaVO consultaVO = new ConsultaVO();
+                consultaVO.setCodigoConsulta(consultasVO.get(i).getCodigoConsulta());
                 consultaVO.setAtencaoEspecial(consultasVO.get(i).getAtencaoEspecial());
                 consultaVO.setDataConsulta(consultasVO.get(i).getDataConsulta());
                 consultaVO.setHorarioConsulta(consultasVO.get(i).getHorarioConsulta());
                 PacienteVO pacienteVO = new PacienteVO();
+                pacienteVO.setCodigoPaciente(consultasVO.get(i).getPacienteVO().getCodigoPaciente());
                 pacienteVO.setNomePaciente(consultasVO.get(i).getPacienteVO().getNomePaciente());
                 consultaVO.setPacienteVO(pacienteVO);
                 listaConsultasVO.add(consultaVO);
             }
         }
-
+        System.out.println("lista consultas" + listaConsultasVO);
         Conexao.closeConnection();
         return listaConsultasVO;
     }

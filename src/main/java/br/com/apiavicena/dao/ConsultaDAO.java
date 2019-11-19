@@ -143,6 +143,7 @@ public class ConsultaDAO {
 
         ArrayList<ConsultaVO> listaConsultas = new ArrayList<ConsultaVO>();
         String query = "select * from consulta";
+        
 
         Connection conn = Conexao.getConnection();
         PreparedStatement prepStmt = Conexao.getPreparedStatement(conn, query);
@@ -170,6 +171,7 @@ public class ConsultaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+          System.out.println("lista consultas" + listaConsultas);
         return listaConsultas;
     }
 
