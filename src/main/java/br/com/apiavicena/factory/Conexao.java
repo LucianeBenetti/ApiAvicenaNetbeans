@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Conexao {
     
     private static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
-    private static final String NOME_ESQUEMA = "avicena";
+    private static final String NOME_ESQUEMA = "AVICENA";
     private static final String URL_CONEXAO = "jdbc:mysql://localhost:3306/" + NOME_ESQUEMA;
     private static final String USUARIO = "root";
     private static final String SENHA = "";
