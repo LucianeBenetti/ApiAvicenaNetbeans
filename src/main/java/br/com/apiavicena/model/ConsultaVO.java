@@ -3,6 +3,8 @@ package br.com.apiavicena.model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -100,7 +102,8 @@ public class ConsultaVO implements Serializable{
     public void setAtencaoEspecial(String atencaoEspecial) {
         this.atencaoEspecial = atencaoEspecial;
     }
-
+         
+ 
     @Override
     public String toString() {
         

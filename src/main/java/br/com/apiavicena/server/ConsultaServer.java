@@ -20,6 +20,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -55,9 +58,21 @@ public class ConsultaServer {
                 pacienteVO.setNomePaciente(consultasVO.get(i).getPacienteVO().getNomePaciente());
                 consultaVO.setPacienteVO(pacienteVO);
                 listaConsultasVO.add(consultaVO);
+                Collections.sort(listaConsultasVO, new Comparator<ConsultaVO>() {
+
+                    @Override
+                    public int compare(ConsultaVO c1, ConsultaVO c2) {
+                        if (c1.getDataConsulta() == null || c2.getDataConsulta() == null) {
+                            return 0;
+                        }
+                        return c1.getDataConsulta().compareTo(c2.getDataConsulta());
+
+                    }
+                });
+
             }
         }
-        System.out.println("lista consultas" + listaConsultasVO);
+
         Conexao.closeConnection();
         return listaConsultasVO;
     }

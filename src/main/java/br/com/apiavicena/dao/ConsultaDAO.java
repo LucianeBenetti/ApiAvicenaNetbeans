@@ -142,7 +142,7 @@ public class ConsultaDAO {
     public ArrayList<ConsultaVO> listar() {
 
         ArrayList<ConsultaVO> listaConsultas = new ArrayList<ConsultaVO>();
-        String query = "select * from consulta";
+        String query = "select * from consulta order by dataConsulta";
         
 
         Connection conn = Conexao.getConnection();
